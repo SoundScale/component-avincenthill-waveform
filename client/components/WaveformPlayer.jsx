@@ -26,12 +26,9 @@ class WaveformPlayer extends React.Component {
 
   componentDidMount() {
     console.log('WaveformPlayer mounted');
-    // console.log('HELLO', process.env.URL, process.env.SEQ_DB); // TBD process vars undefined
     const url = window.location.href.split('/');
     const id = url[url.length - 2] || 1;
-    // const proxyEndpoint = proxyUrl + '/api/waveformplayer/' + id; // TBD what is this
     const endpoint = `/api/waveformplayer/${id}`;
-    // const endpoint = `/api/waveformplayer/2`;
     axios.get(endpoint)
       .then(({ data }) => {
         console.log(`avincenthill client GET request to ${endpoint} on component server returned `, data);
