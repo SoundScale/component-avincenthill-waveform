@@ -27,9 +27,9 @@ const clockOut = () => {
 clockIn();
 
 // datagen script
-const mode = 'songs';
-const numChunks = 100; //100
-const sizeOfChunk = 100000; //100000
+const mode = 'comments';
+const numChunks = 10; //100
+const sizeOfChunk = 10; //100000
 const filePath = `./database/data/${mode}Data.csv`;
 let dataString = '';
 
@@ -52,28 +52,27 @@ const appendChunk = (i) => {
         // write song data
         dataString += `${j + chunkBase},${faker.commerce.color()} ${faker.hacker.noun()} ${j + chunkBase},${'https://source.unsplash.com/' + imageIds[Math.floor(Math.random() * imageIds.length)] + '/690x900'},${casual.date('x')},${Math.floor(Math.random() * 6 * 100) / 100},${casual.word},deprecatedWaveformUrl,${casual.rgb_hex}${'\n'}`;
       }
+    } else if (mode === 'comments') {
+      if (i === 0 && j === 0) {
+        // write csv header
+        dataString += `text,user,userImage,timePosted,songId${'\n'}`;
+      } else if (j > 0) {
+        // write comments data
+        dataString += `${casual.words(n = 7)},${casual.name},${faker.image.avatar()},${Math.floor(Math.random() * 600 * 100) / 100},${Math.floor(Math.random() * 10000000)}${'\n'}`;
+      }
     }
-    // } else if (mode === "comments") {
-    //   if (i === 0 && j === 0) {
-    //     // TBD write csv header
-    //     dataString += `
-    //       text,
-    //       user,
-    //       userImage,
-    //       timePosted,
-    //       songId
-    //       ${'\n'}
-    //   `;
-    //   } else if (j > 0) {
-    //     // TBD write comments data
-    //     dataString += `
-    //         ${j + chunkBase},
-    //         ${faker.commerce.color()} ${faker.hacker.noun()} ${j + chunkBase}
-    //         ${'\n'}
-    //     `;
-    //   }
-    // }
   }
+
+  /*
+   commentModel.create({
+  //           text: faker.random.words(),
+  //           user: faker.name.firstName(),
+  //           userImage: faker.image.avatar(),
+  //           timePosted: Math.floor(Math.random() * 600 * 100) / 100,
+  //           songId: Math.floor(Math.random() * 100),
+  //         });
+  */
+
   // append to .csv
   fs.appendFile(filePath, dataString, (err) => {
     if (err) {
