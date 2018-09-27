@@ -1,5 +1,6 @@
 const faker = require('faker');
 const fs = require('fs');
+const casual = require('casual');
 
 const imageIds = require('./imageIds.js');
 // TBD do I need below?
@@ -27,8 +28,8 @@ clockIn();
 
 // datagen script
 const mode = 'songs';
-const numChunks = 10;
-const sizeOfChunk = 10; //1000000
+const numChunks = 100; //100
+const sizeOfChunk = 100000; //100000
 const filePath = `./database/data/${mode}Data.csv`;
 let dataString = '';
 
@@ -49,7 +50,7 @@ const appendChunk = (i) => {
         dataString += `id,title,artist,coverArt,date,duration,genre,waveform,backgroundColor${'\n'}`;
       } else if (j > 0) {
         // write song data
-        dataString += `${j + chunkBase},${faker.commerce.color()} ${faker.hacker.noun()} ${j + chunkBase},${'https://source.unsplash.com/' + imageIds[Math.floor(Math.random() * imageIds.length)] + '/690x900'},${faker.date.recent()},${Math.floor(Math.random() * 6 * 100) / 100},${faker.random.word()},deprecatedWaveformUrl,${faker.internet.color()}${'\n'}`;
+        dataString += `${j + chunkBase},${faker.commerce.color()} ${faker.hacker.noun()} ${j + chunkBase},${'https://source.unsplash.com/' + imageIds[Math.floor(Math.random() * imageIds.length)] + '/690x900'},${casual.date('x')},${Math.floor(Math.random() * 6 * 100) / 100},${casual.word},deprecatedWaveformUrl,${casual.rgb_hex}${'\n'}`;
       }
     }
     // } else if (mode === "comments") {
