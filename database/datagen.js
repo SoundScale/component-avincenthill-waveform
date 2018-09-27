@@ -1,17 +1,55 @@
-require('fs');
+const faker = require('faker');
+const fs = require('fs');
 
-var startTime = new Date();
-console.log(`datagen.js started running at ${startTime}`);
-console.log('------------------');
+let startTime;
+let endTime;
 
+const clockIn = () => {
+  startTime = new Date();
+  console.log(`datagen.js started running at ${startTime}`);
+  console.log('------------------');
+}
+
+const clockOut = () => {
+  endTime = new Date();
+  console.log('------------------');
+  console.log(`datagen.js stopped running at ${endTime}`);
+  console.log(`datagen.js ran in ${(endTime - startTime) / 1000}s`);
+}
+
+clockIn();
 
 // datagen script
+const numChunks = 10;
+const sizeOfChunk = 10; //1000000
+const filePath = './database/data/data.csv';
+let dataString = '';
 
+faker.seed(13579);
 
-var endTime = new Date();
-console.log('------------------');
-console.log(`datagen.js stopped running at ${endTime}`);
-console.log(`datagen.js ran in ${(endTime - startTime) / 1000}s`);
+const appendChunk = (i) => {
+  let chunkBase =
+  if (i > numChunks - 1) {
+    clockOut();
+    return;
+  }
+  dataString = '';
+  for (let j = 1; j <= sizeOfChunk; j += 1) {
+    dataString += `
+    ${j + (sizeOfChunk * i)},${faker.commerce.color()} ${faker.hacker.noun()} ${j + (sizeOfChunk * i)}${'\n'}
+    `;
+  }
+  fs.appendFile(filePath, dataString, (err) => {
+    if (err) {
+      return console.log(err);
+    }
+    console.log(`chunk ${i} (data entries ${i * sizeOfChunk} - ${(i + 1) * sizeOfChunk})  appended to ${filePath}`);
+    appendChunk(i + 1);
+  });
+};
+
+// start recursion
+appendChunk(0);
 
 
 // songs
