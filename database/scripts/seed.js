@@ -1,23 +1,14 @@
 const Sequelize = require('sequelize');
-
 const faker = require('faker');
-
-const SongModel = require('./models/Songs.js');
-
-const CommentModel = require('./models/Comments.js');
-
-const imageIds = require('./imageIds.js');
-
+const SongModel = require('../models/Songs.js');
+const CommentModel = require('../models/Comments.js');
+const imageIds = require('../data/imageIds.js');
 const waveformUrls = [
   'http://w1.sndcdn.com/fxguEjG4ax6B_m.png',
   'https://w1.sndcdn.com/cWHNerOLlkUq_m.png'];
-
 const DATABASE = process.env.SEQ_DB || 'waveformplayer';
-
 const USER = process.env.SEQ_USER || 'root';
-
 const PASSWORD = process.env.SEQ_PW || '';
-
 const DB_HOST = process.env.DB_HOST || 'localhost';
 
 // console.log(DATABASE, USER, PASSWORD, DB_URL);
@@ -35,7 +26,7 @@ function instantiateData(songModel, commentModel, connection) {
       for (let i = 0; i < 100; i += 1) {
         const imageUrl = `https://source.unsplash.com/${
           imageIds[Math.floor(Math.random() * imageIds.length)]
-        }/690x900`;
+          }/690x900`;
 
         songModel.create({
           title: faker.random.word(),

@@ -11,9 +11,9 @@
     "react-dev": "webpack -d --watch",
     "start-dev": "nodemon server/index.js",
     "test": "jest --verbose",
-    "seed": "node database/seed.js",
+    "seed": "node database/scripts/seed.js",
     "docker-build": "node database/seed.js && node server/index.js",
-    "datagen": "node database/datagen.js"
+    "datagen": "node database/scripts/datagen.js"
   },
   "jest": {
     "transform": {

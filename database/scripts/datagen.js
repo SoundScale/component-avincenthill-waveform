@@ -2,7 +2,7 @@ const faker = require('faker');
 const fs = require('fs');
 const casual = require('casual');
 
-const imageIds = require('./imageIds.js');
+const imageIds = require('../data/imageIds.js');
 // TBD do I need below?
 const waveformUrls = [
   'http://w1.sndcdn.com/fxguEjG4ax6B_m.png',
