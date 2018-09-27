@@ -28,8 +28,8 @@ clockIn();
 
 // datagen script
 const mode = 'comments';
-const numChunks = 10; //100
-const sizeOfChunk = 10; //100000
+const numChunks = 1200; // 100 x 100000 for 10M
+const sizeOfChunk = 50000; // 1200 x 50000 for 60M
 const filePath = `./database/data/${mode}Data.csv`;
 let dataString = '';
 
@@ -58,7 +58,7 @@ const appendChunk = (i) => {
         dataString += `text,user,userImage,timePosted,songId${'\n'}`;
       } else if (j > 0) {
         // write comments data
-        dataString += `${casual.words(n = 7)},${casual.name},${faker.image.avatar()},${Math.floor(Math.random() * 600 * 100) / 100},${Math.floor(Math.random() * 10000000)}${'\n'}`;
+        dataString += `${casual.words(n = 7)},${casual.first_name},${faker.image.avatar()},${Math.floor(Math.random() * 600 * 100) / 100},${Math.floor(Math.random() * 10000000)}${'\n'}`;
       }
     }
   }
