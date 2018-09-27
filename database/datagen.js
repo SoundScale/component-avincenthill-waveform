@@ -46,33 +46,10 @@ const appendChunk = (i) => {
     if (mode === "songs") {
       if (i === 0 && j === 0) {
         // write csv song header
-        dataString += `
-          id,
-          title,
-          artist,
-          coverArt,
-          date,
-          duration,
-          genre,
-          waveform,
-          backgroundColor
-          ${'\n'}
-      `;
+        dataString += `id,title,artist,coverArt,date,duration,genre,waveform,backgroundColor${'\n'}`;
       } else if (j > 0) {
         // write song data
-        dataString += `
-            ${j + chunkBase},
-            ${faker.commerce.color()} ${faker.hacker.noun()} ${j + chunkBase},
-            ${'https://source.unsplash.com/' +
-          imageIds[Math.floor(Math.random() * imageIds.length)]
-          + '/690x900'},
-            ${faker.database.recent()},
-            ${Math.floor(Math.random() * 6 * 100) / 100},
-            ${faker.random.word()},
-            deprecatedWaveformUrl,
-            ${faker.internet.color()}
-            ${'\n'}
-        `;
+        dataString += `${j + chunkBase},${faker.commerce.color()} ${faker.hacker.noun()} ${j + chunkBase},${'https://source.unsplash.com/' + imageIds[Math.floor(Math.random() * imageIds.length)] + '/690x900'},${faker.date.recent()},${Math.floor(Math.random() * 6 * 100) / 100},${faker.random.word()},deprecatedWaveformUrl,${faker.internet.color()}${'\n'}`;
       }
     }
     // } else if (mode === "comments") {
