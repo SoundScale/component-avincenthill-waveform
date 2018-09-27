@@ -1,6 +1,12 @@
 const faker = require('faker');
 const fs = require('fs');
 
+const imageIds = require('./imageIds.js');
+// TBD do I need below?
+const waveformUrls = [
+  'http://w1.sndcdn.com/fxguEjG4ax6B_m.png',
+  'https://w1.sndcdn.com/cWHNerOLlkUq_m.png'];
+
 let startTime;
 let endTime;
 
@@ -20,30 +26,82 @@ const clockOut = () => {
 clockIn();
 
 // datagen script
+const mode = 'songs';
 const numChunks = 10;
 const sizeOfChunk = 10; //1000000
-const filePath = './database/data/data.csv';
+const filePath = `./database/data/${mode}Data.csv`;
 let dataString = '';
 
 faker.seed(13579);
 
 const appendChunk = (i) => {
-  let chunkBase =
+  const chunkBase = sizeOfChunk * i;
   if (i > numChunks - 1) {
     clockOut();
     return;
   }
+  // construct string chunk
   dataString = '';
-  for (let j = 1; j <= sizeOfChunk; j += 1) {
-    dataString += `
-    ${j + (sizeOfChunk * i)},${faker.commerce.color()} ${faker.hacker.noun()} ${j + (sizeOfChunk * i)}${'\n'}
-    `;
+  for (let j = 0; j <= sizeOfChunk; j += 1) {
+    if (mode === "songs") {
+      if (i === 0 && j === 0) {
+        // write csv song header
+        dataString += `
+          id,
+          title,
+          artist,
+          coverArt,
+          date,
+          duration,
+          genre,
+          waveform,
+          backgroundColor
+          ${'\n'}
+      `;
+      } else if (j > 0) {
+        // write song data
+        dataString += `
+            ${j + chunkBase},
+            ${faker.commerce.color()} ${faker.hacker.noun()} ${j + chunkBase},
+            ${'https://source.unsplash.com/' +
+          imageIds[Math.floor(Math.random() * imageIds.length)]
+          + '/690x900'},
+            ${faker.database.recent()},
+            ${Math.floor(Math.random() * 6 * 100) / 100},
+            ${faker.random.word()},
+            deprecatedWaveformUrl,
+            ${faker.internet.color()}
+            ${'\n'}
+        `;
+      }
+    }
+    // } else if (mode === "comments") {
+    //   if (i === 0 && j === 0) {
+    //     // TBD write csv header
+    //     dataString += `
+    //       text,
+    //       user,
+    //       userImage,
+    //       timePosted,
+    //       songId
+    //       ${'\n'}
+    //   `;
+    //   } else if (j > 0) {
+    //     // TBD write comments data
+    //     dataString += `
+    //         ${j + chunkBase},
+    //         ${faker.commerce.color()} ${faker.hacker.noun()} ${j + chunkBase}
+    //         ${'\n'}
+    //     `;
+    //   }
+    // }
   }
+  // append to .csv
   fs.appendFile(filePath, dataString, (err) => {
     if (err) {
       return console.log(err);
     }
-    console.log(`chunk ${i} (data entries ${i * sizeOfChunk} - ${(i + 1) * sizeOfChunk})  appended to ${filePath}`);
+    console.log(`chunk ${i} (data entries ${chunkBase} - ${(i + 1) * sizeOfChunk})  appended to ${filePath}`);
     appendChunk(i + 1);
   });
 };

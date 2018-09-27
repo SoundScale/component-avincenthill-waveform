@@ -7,8 +7,6 @@ const ArtContainer = require('./ArtContainer.jsx');
 const Modal = require('./Modal.jsx');
 const styles = require('../styles/WaveformPlayer.css');
 
-// const proxyUrl = process.env.URL || '18.224.8.56';
-
 class WaveformPlayer extends React.Component {
   constructor(props) {
     super(props);
@@ -22,7 +20,6 @@ class WaveformPlayer extends React.Component {
     this.playPause = this.playPause.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
   }
-
 
   componentDidMount() {
     console.log('WaveformPlayer mounted');
