@@ -63,104 +63,18 @@ const appendChunk = (i) => {
     }
   }
 
-  /*
-   commentModel.create({
-  //           text: faker.random.words(),
-  //           user: faker.name.firstName(),
-  //           userImage: faker.image.avatar(),
-  //           timePosted: Math.floor(Math.random() * 600 * 100) / 100,
-  //           songId: Math.floor(Math.random() * 100),
-  //         });
-  */
-
   // append to .csv
   fs.appendFile(filePath, dataString, (err) => {
     if (err) {
       return console.log(err);
     }
-    console.log(`chunk ${i} (data entries ${chunkBase} - ${(i + 1) * sizeOfChunk})  appended to ${filePath}`);
+    console.log(`chunk ${i} (data entries ${chunkBase} - ${(i + 1) * sizeOfChunk}) appended to ${filePath}`);
     appendChunk(i + 1);
   });
 };
 
 // start recursion
 appendChunk(0);
-
-
-// songs
-
-//   +-----------------+--------------+------+-----+---------+----------------+
-// | Field           | Type         | Null | Key | Default | Extra          |
-// +-----------------+--------------+------+-----+---------+----------------+
-// | id              | int(11)      | NO   | PRI | NULL    | auto_increment |
-// | title           | varchar(255) | YES  |     | NULL    |                |
-// | coverArt        | varchar(255) | YES  |     | NULL    |                |
-// | artist          | varchar(255) | YES  |     | NULL    |                |
-// | date            | datetime     | YES  |     | NULL    |                |
-// | duration        | float        | YES  |     | NULL    |                |
-// | genre           | varchar(255) | YES  |     | NULL    |                |
-// | waveform        | varchar(255) | YES  |     | NULL    |                |
-// | backgroundColor | varchar(255) | YES  |     | NULL    |                |
-// +-----------------+--------------+------+-----+---------+----------------+
-
-// comments
-
-// +------------+--------------+------+-----+---------+----------------+
-// | Field      | Type         | Null | Key | Default | Extra          |
-// +------------+--------------+------+-----+---------+----------------+
-// | id         | int(11)      | NO   | PRI | NULL    | auto_increment |
-// | text       | varchar(255) | YES  |     | NULL    |                |
-// | user       | varchar(255) | YES  |     | NULL    |                |
-// | userImage  | varchar(255) | YES  |     | NULL    |                |
-// | timePosted | float        | YES  |     | NULL    |                |
-// | songId     | int(11)      | YES  | FK? | NULL    |                |
-// +------------+--------------+------+-----+---------+----------------+
-
-// function instantiateData(songModel, commentModel, connection) {
-//   songModel.sync({ force: true })
-//     .then(() => {
-//       // const songPromises = [];
-//       for (let i = 0; i < 100; i += 1) {
-//         const imageUrl = 'https://source.unsplash.com/{
-//         imageIds[Math.floor(Math.random() * imageIds.length)]
-//         }/690x900';
-
-//         songModel.create({
-//           title: faker.random.word(),
-//           artist: faker.name.findName(),
-//           coverArt: imageUrl,
-//           date: faker.date.recent(),
-//           duration: Math.floor(Math.random() * 6 * 100) / 100,
-//           genre: faker.random.word(),
-//           waveform: waveformUrls[Math.floor(Math.random() * 2)],
-//           backgroundColor: faker.internet.color(),
-//         });
-//         // return Promise.all(songPromises);
-//       }
-//     })
-//     .then(() => commentModel.sync({ force: true }))
-//     .then(() => {
-//       // const commentPromises = [];
-//       for (let i = 0; i < 600; i += 1) {
-//         commentModel.create({
-//           text: faker.random.words(),
-//           user: faker.name.firstName(),
-//           userImage: faker.image.avatar(),
-//           timePosted: Math.floor(Math.random() * 600 * 100) / 100,
-//           songId: Math.floor(Math.random() * 100),
-//         });
-//         // return Promise.all(commentPromises);
-//       }
-//     })
-//     .then(() => {
-//       console.log('Database { DATABASE } seeded');
-//       setTimeout(() => {
-//         connection.close();
-//       }, 6000);
-//     });
-// }
-
-//
 
 /*
 
