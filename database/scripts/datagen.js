@@ -13,6 +13,7 @@ let endTime;
 
 const clockIn = () => {
   startTime = new Date();
+  console.log('------------------');
   console.log(`datagen.js started running at ${startTime}`);
   console.log('------------------');
 }
@@ -22,15 +23,16 @@ const clockOut = () => {
   console.log('------------------');
   console.log(`datagen.js stopped running at ${endTime}`);
   console.log(`datagen.js ran in ${(endTime - startTime) / 1000}s`);
+  console.log('------------------');
 }
 
 clockIn();
 
 // datagen script
 const mode = 'comments';
-const numChunks = 1200; // 100 x 100000 for 10M
-const sizeOfChunk = 50000; // 1200 x 50000 for 60M
-const filePath = `./database/data/${mode}Data.csv`;
+const numChunks = 10; // 100 x 100000 for 10M
+const sizeOfChunk = 10; // 1200 x 50000 for 60M
+const filePath = `./database/data/small${mode}Data.csv`;
 let dataString = '';
 
 faker.seed(13579);
@@ -50,7 +52,7 @@ const appendChunk = (i) => {
         dataString += `id,title,artist,coverArt,date,duration,genre,waveform,backgroundColor${'\n'}`;
       } else if (j > 0) {
         // write song data
-        dataString += `${j + chunkBase},${faker.commerce.color()} ${faker.hacker.noun()} ${j + chunkBase},${'https://source.unsplash.com/' + imageIds[Math.floor(Math.random() * imageIds.length)] + '/690x900'},${casual.date('x')},${Math.floor(Math.random() * 6 * 100) / 100},${casual.word},deprecatedWaveformUrl,${casual.rgb_hex}${'\n'}`;
+        dataString += `${j + chunkBase},${faker.commerce.color()} ${faker.hacker.noun()} ${j + chunkBase},${'https://source.unsplash.com/' + imageIds[Math.floor(Math.random() * imageIds.length)] + '/690x900'},${casual.date('YYYY-MM-DD')},${Math.floor(Math.random() * 6 * 100) / 100},${casual.word},deprecatedWaveformUrl,${casual.rgb_hex}${'\n'}`;
       }
     } else if (mode === 'comments') {
       if (i === 0 && j === 0) {
