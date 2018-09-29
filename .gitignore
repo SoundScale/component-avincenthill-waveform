@@ -24,5 +24,8 @@ coverage
 build/
 dist/
 
+#environment
+.env
+
 #data
 *.csv
