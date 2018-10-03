@@ -24,4 +24,14 @@ CREATE TABLE comments (
  songId INTEGER
 );
 
-/* songId INTEGER REFERENCES songs(id) */
+/*
+psql import script
+
+COPY comments(id, body, username, userImage, timePosted, songId) FROM '/home/avincenthill/Projects/SDC/component-avincenthill-waveform/database/data/commentsData.csv' DELIMITER ',' CSV;
+
+ex data
+10,rerum ut earum inventore architecto culpa voluptatem,Nelson,https://s3.amazonaws.com/uifaces/faces/twitter/91bilal/128.jpg,101.5,9339426
+
+
+songId INTEGER REFERENCES songs(id)
+*/

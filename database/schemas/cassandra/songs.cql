@@ -29,10 +29,9 @@ CREATE TABLE songs (
 */
 
 /* load command
-/home/avincenthill/Projects/SDC/helpers/cassandra-loader/build/cassandra-loader -f /home/avincenthill/Projects/SDC/component-avincenthill-waveform/database/data/songsData.csv -host localhost -schema "sdc.songs(songs_id, songs_title, songs_coverArt, songs_releaseDate, songs_duration, songs_artist, songs_waveform, songs_backgroundColor)"
+/home/avincenthill/Projects/SDC/helpers/cassandra-loader/build/cassandra-loader -f /home/avincenthill/Projects/SDC/component-avincenthill-waveform/database/data/songsData.csv -host localhost -schema "sdc.songs(songs_id, songs_title, songs_artist, songs_coverArt, songs_releaseDate, songs_duration, songs_genre, songs_waveform, songs_backgroundColor)"
 
-Error parsing line 1 in songsData.csv: id,title,artist,coverArt,date,duration,genre,waveform,backgroundColor
 Row has different number of fields (9) than expected (8)
-Error parsing line 2 in songsData.csv: 1,mint green protocol 1,Mervin,https://source.unsplash.com/w9jX4zNt9ro/690x900,1970-07-15,3.84,eum,deprecatedWaveformUrl,#0a35ef
+Error parsing line 10 in songsData.csv: 9,azure driver 9,Christa,https://source.unsplash.com/c0ZvWlXRPLk/690x900,1971-01-30,2.43,et,deprecatedWaveformUrl,#14bae0
 
 */

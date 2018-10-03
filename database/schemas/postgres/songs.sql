@@ -35,11 +35,21 @@ DROP TABLE IF EXISTS songs;
 CREATE TABLE songs (
  id SERIAL PRIMARY KEY,
  title VARCHAR (255),
- coverArt VARCHAR (255),
  artist VARCHAR (255),
+ coverArt VARCHAR (255),
  releaseDate DATE,
  duration FLOAT,
  genre VARCHAR (255),
  waveform VARCHAR (255),
  backgroundColor VARCHAR (255)
 );
+
+/*
+psql import script
+
+COPY songs(id, title, artist, coverArt, releaseDate, duration, genre, waveform, backgroundColor) FROM '/home/avincenthill/Projects/SDC/component-avincenthill-waveform/database/data/songsData.csv' DELIMITER ',' CSV;
+
+ex data
+10,maroon circuit 10,Elyssa,https://source.unsplash.com/9nTxnFaSR_Q/690x900,1983-10-18,1.61,dolores,deprecatedWaveformUrl,#cb648c
+
+*/

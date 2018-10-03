@@ -29,13 +29,15 @@ const clockOut = () => {
 clockIn();
 
 // datagen script
-const mode = 'songs';
-// const mode = 'comments';
+// const mode = 'songs';
+const mode = process.env.seeding_mode;
 
-const numChunks = 100; // 100 x 100000 for 10M
-const sizeOfChunk = 100000; // 1200 x 50000 for 60M
+const numChunks = 1000; // 100 x 100000 or 1000 x 10000 for 10M
+const sizeOfChunk = 10000; // 1200 x 50000 for 60M,
 const filePath = `./database/data/${mode}Data.csv`;
 let dataString = '';
+let commentId = 0;
+let lastCommentIdInChunk = 0;
 
 faker.seed(13579);
 
@@ -47,11 +49,12 @@ const appendChunk = (i) => {
   }
   // construct string chunk
   dataString = '';
+  lastCommentIdInChunk = commentId;
   for (let j = 0; j <= sizeOfChunk; j += 1) {
     if (mode === "songs") {
       if (i === 0 && j === 0) {
         // write csv song header
-        dataString += `id,title,artist,coverArt,date,duration,genre,waveform,backgroundColor${'\n'}`;
+        // dataString += `id,title,artist,coverArt,date,duration,genre,waveform,backgroundColor${'\n'}`;
       } else if (j > 0) {
         // write song data
         dataString += `${j + chunkBase},${faker.commerce.color()} ${faker.hacker.noun()} ${j + chunkBase},${casual.first_name},${'https://source.unsplash.com/' + imageIds[Math.floor(Math.random() * imageIds.length)] + '/690x900'},${casual.date('YYYY-MM-DD')},${Math.floor(Math.random() * 6 * 100) / 100},${casual.word},deprecatedWaveformUrl,${casual.rgb_hex}${'\n'}`;
@@ -59,10 +62,27 @@ const appendChunk = (i) => {
     } else if (mode === 'comments') {
       if (i === 0 && j === 0) {
         // write csv header
-        dataString += `text,user,userImage,timePosted,songId${'\n'}`;
+        // dataString += `text,user,userImage,timePosted,songId${'\n'}`;
       } else if (j > 0) {
         // write comments data
-        dataString += `${casual.words(n = 7)},${casual.first_name},${faker.image.avatar()},${Math.floor(Math.random() * 600 * 100) / 100},${Math.floor(Math.random() * 10000000)}${'\n'}`;
+        dataString += `${j + chunkBase},${casual.words(n = 7)},${casual.first_name},${faker.image.avatar()},${Math.floor(Math.random() * 600 * 100) / 100},${Math.floor(Math.random() * 10000000)}${'\n'}`;
+      }
+    } else if (mode === 'optimized_comments') {
+      if (i === 0 && j === 0) {
+        // write csv header
+        // dataString += `TBD header`;
+      } else if (j > 0) {
+        // append songs data to string
+        const songsDataString = `${j + chunkBase},${faker.commerce.color()} ${faker.hacker.noun()} ${j + chunkBase},${casual.first_name},${'https://source.unsplash.com/' + imageIds[Math.floor(Math.random() * imageIds.length)] + '/690x900'},${casual.date('YYYY-MM-DD')},${Math.floor(Math.random() * 6 * 100) / 100},${casual.word},deprecatedWaveformUrl,${casual.rgb_hex}$`;
+
+        //loop through random ammounts of comments (1-12)
+        const numComments = Math.floor(Math.random() * Math.floor(11)) + 1;
+        for (let k = 0; k < numComments; k += 1) {
+          //append comments data to string
+          const copyString = songsDataString.slice();
+          dataString += `${copyString},${commentId},${casual.words(n = 7)},${casual.first_name},${'https://source.unsplash.com/' + imageIds[Math.floor(Math.random() * imageIds.length)] + '/690x900'},${Math.floor(Math.random() * 600 * 100) / 100}${'\n'}`;
+          commentId += 1;
+        }
       }
     }
   }
@@ -72,7 +92,11 @@ const appendChunk = (i) => {
     if (err) {
       return console.log(err);
     }
-    console.log(`chunk ${i} (data entries ${chunkBase} - ${(i + 1) * sizeOfChunk}) appended to ${filePath}`);
+    if (mode === 'optimized_comments') {
+      console.log(`chunk ${i}, (comments ${lastCommentIdInChunk} - ${commentId}) appended to ${filePath}`);
+    } else {
+      console.log(`chunk ${i} (data entries ${chunkBase} - ${(i + 1) * sizeOfChunk}) appended to ${filePath}`);
+    }
     appendChunk(i + 1);
   });
 };
