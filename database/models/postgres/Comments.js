@@ -1,3 +1,18 @@
+/*
+Table "public.comments"
+Column   |          Type          | Collation | Nullable |               Default                | Storage  | Stats target | Description
+------------+------------------------+-----------+----------+--------------------------------------+----------+--------------+-------------
+id         | integer                |           | not null | nextval('comments_id_seq'::regclass) | plain    |              |
+body       | character varying(255) |           |          |                                      | extended |              |
+username   | character varying(255) |           |          |                                      | extended |              |
+userimage  | character varying(255) |           |          |                                      | extended |              |
+timeposted | double precision       |           |          |                                      | plain    |              |
+songid     | integer                |           |          |                                      | plain    |              |
+Indexes:
+ "comments_pkey" PRIMARY KEY, btree (id)
+ "songid_index" btree (songid)
+*/
+
 const Sequelize = require('sequelize');
 
 const commentSchema = {
@@ -6,19 +21,19 @@ const commentSchema = {
     primaryKey: true,
     autoIncrement: true,
   },
-  text: {
+  body: {
     type: Sequelize.STRING,
   },
-  user: {
+  username: {
     type: Sequelize.STRING,
   },
-  userImage: {
+  userimage: {
     type: Sequelize.STRING,
   },
-  timePosted: {
+  timeposted: {
     type: Sequelize.FLOAT,
   },
-  songId: {
+  songid: {
     type: Sequelize.INTEGER,
   },
 };

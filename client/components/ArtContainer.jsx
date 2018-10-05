@@ -22,8 +22,8 @@ class ArtContainer extends React.Component {
     const style = {
       backgroundSize: '100% 100%',
     };
-    if (props.song.coverArt) {
-      style.backgroundImage = `url(${props.song.coverArt})`;
+    if (props.song.coverart) {
+      style.backgroundImage = `url(${props.song.coverart})`;
     }
     return (
       <div className={`${styles['art-container']} cursor`} style={style} onClick={this.handleClick.bind(this)} />

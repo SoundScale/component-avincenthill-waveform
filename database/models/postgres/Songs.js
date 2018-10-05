@@ -1,3 +1,20 @@
+/*
+Table "public.songs"
+     Column      |          Type          | Collation | Nullable |              Default              | Storage  | Stats target | Description
+-----------------+------------------------+-----------+----------+-----------------------------------+----------+--------------+-------------
+ id              | integer                |           | not null | nextval('songs_id_seq'::regclass) | plain    |              |
+ title           | character varying(255) |           |          |                                   | extended |              |
+ coverart        | character varying(255) |           |          |                                   | extended |              |
+ artist          | character varying(255) |           |          |                                   | extended |              |
+ releasedate     | date                   |           |          |                                   | plain    |              |
+ duration        | double precision       |           |          |                                   | plain    |              |
+ genre           | character varying(255) |           |          |                                   | extended |              |
+ waveform        | character varying(255) |           |          |                                   | extended |              |
+ backgroundcolor | character varying(255) |           |          |                                   | extended |              |
+Indexes:
+    "songs_pkey" PRIMARY KEY, btree (id)
+*/
+
 const Sequelize = require('sequelize');
 
 const songSchema = {
@@ -9,13 +26,13 @@ const songSchema = {
   title: {
     type: Sequelize.STRING,
   },
-  coverArt: {
+  coverart: {
     type: Sequelize.STRING,
   },
   artist: {
     type: Sequelize.STRING,
   },
-  date: {
+  releasedate: {
     type: Sequelize.DATE,
   },
   duration: {
@@ -27,7 +44,7 @@ const songSchema = {
   waveform: {
     type: Sequelize.STRING,
   },
-  backgroundColor: {
+  backgroundcolor: {
     type: Sequelize.STRING,
   },
 };

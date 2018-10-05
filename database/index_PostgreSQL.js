@@ -1,40 +1,6 @@
-/*
-
-Table "public.songs"
-     Column      |          Type          | Collation | Nullable |              Default              | Storage  | Stats target | Description
------------------+------------------------+-----------+----------+-----------------------------------+----------+--------------+-------------
- id              | integer                |           | not null | nextval('songs_id_seq'::regclass) | plain    |              |
- title           | character varying(255) |           |          |                                   | extended |              |
- coverart        | character varying(255) |           |          |                                   | extended |              |
- artist          | character varying(255) |           |          |                                   | extended |              |
- releasedate     | date                   |           |          |                                   | plain    |              |
- duration        | double precision       |           |          |                                   | plain    |              |
- genre           | character varying(255) |           |          |                                   | extended |              |
- waveform        | character varying(255) |           |          |                                   | extended |              |
- backgroundcolor | character varying(255) |           |          |                                   | extended |              |
-Indexes:
-    "songs_pkey" PRIMARY KEY, btree (id)
-
-----------------------------------------------------------------
-
-Table "public.comments"
-Column   |          Type          | Collation | Nullable |               Default                | Storage  | Stats target | Description
-------------+------------------------+-----------+----------+--------------------------------------+----------+--------------+-------------
-id         | integer                |           | not null | nextval('comments_id_seq'::regclass) | plain    |              |
-body       | character varying(255) |           |          |                                      | extended |              |
-username   | character varying(255) |           |          |                                      | extended |              |
-userimage  | character varying(255) |           |          |                                      | extended |              |
-timeposted | double precision       |           |          |                                      | plain    |              |
-songid     | integer                |           |          |                                      | plain    |              |
-Indexes:
- "comments_pkey" PRIMARY KEY, btree (id)
- "songid_index" btree (songid)
-
-*/
-
 const Sequelize = require('sequelize');
-const SongModel = require('./models/Songs.js');
-const CommentModel = require('./models/Comments.js');
+const SongModel = require('./models/postgres/Songs.js');
+const CommentModel = require('./models/postgres/Comments.js');
 const DATABASE = process.env.POSTGRES_DBNAME || 'waveformplayer';
 const USER = process.env.POSTGRES_USER || 'root';
 const PASSWORD = process.env.POSTGRES_PW || '';
@@ -49,6 +15,7 @@ const commentModel = CommentModel(sequelize);
 
 module.exports = {
   getSongData: (id, callback) => {
+    console.log('got to get song data')
     const queryResult = {};
     songModel.findAll({
       where: { id },
@@ -57,7 +24,7 @@ module.exports = {
         queryResult.songData = result[0];
         return commentModel.findAll({
           where: {
-            songId: id,
+            songid: id,
           }
         })
       }))
@@ -128,7 +95,7 @@ module.exports = {
       where: { id },
     })
       .then((result => {
-        console.log(result);
+        // console.log(result);
         cb(null);
       }));
   },
@@ -218,7 +185,7 @@ module.exports = {
       where: { id },
     })
       .then((result => {
-        console.log(result);
+        // console.log(result);
         cb(null);
       }));
   },
