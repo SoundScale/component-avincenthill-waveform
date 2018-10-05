@@ -9,7 +9,7 @@ class Modal extends React.Component {
 
   render() {
     const modal = document.getElementById('modal');
-    const { title, coverArt } = this.props.song;
+    const { title, coverart } = this.props.song;
     const { toggleModal } = this.props;
     return ReactDOM.createPortal((
       <div className={styles["wp-modal-tint"]} onClick={toggleModal}>

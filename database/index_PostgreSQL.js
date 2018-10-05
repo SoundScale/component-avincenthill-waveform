@@ -28,7 +28,6 @@ module.exports = {
         })
       }))
       .then((result => {
-        console.log(result);
         queryResult.commentData = result;
         callback(JSON.stringify({ allData: queryResult }));
       }))
