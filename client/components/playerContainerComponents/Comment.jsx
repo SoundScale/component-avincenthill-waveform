@@ -26,10 +26,10 @@ class Comment extends React.Component {
 
   render() {
     const {
-      userImage,
-      timePosted,
-      text,
-      user,
+      userimage,
+      timeposted,
+      body,
+      username,
     } = this.props.comment;
 
     /*
@@ -39,7 +39,7 @@ class Comment extends React.Component {
 
     const wrapperStyle = {
       position: 'absolute',
-      left: timePosted,
+      left: timeposted,
       top: '0px',
       height: '45px',
       width: '400px',
@@ -47,7 +47,7 @@ class Comment extends React.Component {
     };
     const avatarStyle = {
       position: 'absolute',
-      backgroundImage: `url(${userImage})`,
+      backgroundImage: `url(${userimage})`,
       backgroundSize: '100% 100%',
       borderRadius: this.state.radius,
       width: '19px',
@@ -57,18 +57,18 @@ class Comment extends React.Component {
 
     return (
       <div className={styles["wp-comment-wrapper"]} style={wrapperStyle}>
-         {this.state.visible && <div className={styles["wp-comment-streak"]} />}
-        <div className={styles["wp-comment-avatar"]} style={avatarStyle} onMouseEnter={this.showComment.bind(this)} onMouseLeave={this.hideComment.bind(this)}/>
+        {this.state.visible && <div className={styles["wp-comment-streak"]} />}
+        <div className={styles["wp-comment-avatar"]} style={avatarStyle} onMouseEnter={this.showComment.bind(this)} onMouseLeave={this.hideComment.bind(this)} />
         {this.state.visible &&
           (
             <div className={styles["wp-comment"]}>
-              <div className={styles["wp-comment-user"]} >{user}</div>
-              <div className= {styles["wp-comment-text"]} >{text}</div>
+              <div className={styles["wp-comment-user"]} >{username}</div>
+              <div className={styles["wp-comment-text"]} >{body}</div>
             </div>
           )
-         }
+        }
       </div>
-    );  
+    );
   }
 }
 

@@ -16,7 +16,7 @@ describe(' <ArtContainer /> ', () => {
   });
   test('should apply cover art as a background image', () => {
     const { backgroundImage } = wrapper.find('div.art-container').prop('style');
-    const imgIndex = backgroundImage.indexOf(song.coverArt);
+    const imgIndex = backgroundImage.indexOf(song.coverart);
     expect(imgIndex).toBeGreaterThan(-1);
   });
 });

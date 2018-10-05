@@ -19,7 +19,7 @@ describe(' <Modal /> ', () => {
   test('should render proper image', () => {
     const wrapper = shallow(<Modules.Modal song={song} toggleModal={() => null} />);
     const modalImage = wrapper.find('.img-modal').props().src;
-    expect(modalImage).toBe(song.coverArt);
+    expect(modalImage).toBe(song.coverart);
   });
 
   test('should call toggleModal onClick', () => {
@@ -29,5 +29,5 @@ describe(' <Modal /> ', () => {
     wrapper.find('.wp-modal-tint').simulate('click');
     expect(spy.called).toBe(true);
   });
-  
+
 });

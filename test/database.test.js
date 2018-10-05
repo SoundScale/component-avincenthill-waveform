@@ -23,9 +23,9 @@
 // const sequelizeTesters = require('sequelize-test-helpers');
 const SequelizeMock = require('sequelize-mock');
 
-const SongModel = require('../database/models/Songs.js');
+const SongModel = require('../database/models/postgres/Songs.js');
 
-const CommentModel = require('../database/models/Comments.js');
+const CommentModel = require('../database/models/postgres/Comments.js');
 
 test('should do something', () => {
   expect(true).toBe(true);
