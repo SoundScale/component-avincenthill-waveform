@@ -14,7 +14,8 @@
     "seedmysql": "node database/scripts/seed_mysql.js",
     "createTablesPostgres": "node database/scripts/createTables_postgres.js",
     "docker-build": "node database/seed.js && node server/index.js",
-    "datagen": "node database/scripts/datagen.js"
+    "datagen": "node database/scripts/datagen.js",
+    "build": "webpack && grunt s3"
   },
   "jest": {
     "transform": {
@@ -36,9 +37,12 @@
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "faker": "^4.1.0",
+    "grunt": "^1.0.3",
+    "grunt-s3": "^0.2.0-alpha.3",
     "jest-cli": "^23.6.0",
     "moment": "^2.22.2",
     "mysql": "^2.16.0",
+    "newrelic": "^4.9.0",
     "nodemon": "^1.18.4",
     "path": "^0.12.7",
     "pg": "^7.4.3",

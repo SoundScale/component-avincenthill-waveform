@@ -1,0 +1,44 @@
+config:
+  target: 'http://localhost:1337'
+  phases:
+    - duration: 10
+      arrivalRate: 500
+scenarios:
+  - flow:
+    - get:
+        url: /songs/{{$randomNumber(1, 100000)}}
+
+# {
+# "config": {
+#     "target": "http://localhost:3004",
+#     "phases": [
+#     {"duration": "600", "arrivalRate": 500}
+#     ]
+# },
+# "scenarios": [
+#     {
+#     "flow": [
+#         {"get": {"url": "/api/stats/{{$randomNumber(1, 100000)}}"}}
+#     ]
+#     }
+# ]
+# }
+
+#config:
+#  target: 'http://localhost:3003'
+#  phases:
+#    - duration: 300
+#      arrivalRate: 5
+#  payload:
+#    path: 'rows.csv'
+#    fields:
+#      - "home_id"
+#      - "image_id"
+#      - "caption"
+#scenarios:
+#  - name: "Simple Get"
+#    flow:
+#      - loop:
+#          - get:
+#              url: "/homes/{{ home_id }}/images"
+#        count: 500
