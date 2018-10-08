@@ -15,7 +15,8 @@
     "createTablesPostgres": "node database/scripts/createTables_postgres.js",
     "docker-build": "node database/seed.js && node server/index.js",
     "datagen": "node database/scripts/datagen.js",
-    "build": "webpack && grunt s3"
+    "build": "webpack && grunt s3",
+    "stress": "artillery run ./artillery/test.yml"
   },
   "jest": {
     "transform": {
