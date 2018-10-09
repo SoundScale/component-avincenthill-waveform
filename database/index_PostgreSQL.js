@@ -1,15 +1,26 @@
 const Sequelize = require('sequelize');
+const pg = require('pg');
 const SongModel = require('./models/postgres/Songs.js');
 const CommentModel = require('./models/postgres/Comments.js');
+
+// pg.defaults.ssl = true;
+
 const DATABASE = process.env.POSTGRES_DBNAME || 'waveformplayer';
 const USER = process.env.POSTGRES_USER || 'root';
 const PASSWORD = process.env.POSTGRES_PW || '';
 const DB_HOST = process.env.POSTGRES_HOST || 'localhost';
+
+// TBD connect to cloud db on ec2
 const sequelize = new Sequelize(DATABASE, USER, PASSWORD, {
   host: DB_HOST,
+  port: process.env.POSTGRES_PORT,
   dialect: 'postgres',
   logging: false,
+  dialectOptions: {
+    // ssl: true,
+  },
 });
+
 const songModel = SongModel(sequelize);
 const commentModel = CommentModel(sequelize);
 
@@ -214,4 +225,3 @@ module.exports = {
     });
   },
 };
-
