@@ -24,6 +24,29 @@ app.get('/api/waveformplayer/:id', (req, res) => {
 
 // REST API
 // **************************************
+
+/*
+1
+Place this verification token in a file:
+
+loaderio-da078809a9a0dee57a2632b8564687b9
+Or download the file you need.
+
+2
+Upload the file to your server so it is accessible at one of the following URLs:
+
+http://ec2-54-219-128-8.us-west-1.compute.amazonaws.com:1337/loaderio-da078809a9a0dee57a2632b8564687b9/
+http://ec2-54-219-128-8.us-west-1.compute.amazonaws.com:1337/loaderio-da078809a9a0dee57a2632b8564687b9.html
+http://ec2-54-219-128-8.us-west-1.compute.amazonaws.com:1337/loaderio-da078809a9a0dee57a2632b8564687b9.txt
+*/
+
+//loaderio
+app.get('/loaderio-*/', (req, res) => {
+  res.status(200).send(process.env.LOADERIO_KEY);
+});
+
+
+
 // songs
 app.get('/api/songs/', (req, res) => {
   db.getSongs(null, (err, data) => {
