@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const pg = require('pg');
+// const pg = require('pg');
 const SongModel = require('./models/postgres/Songs.js');
 const CommentModel = require('./models/postgres/Comments.js');
 
