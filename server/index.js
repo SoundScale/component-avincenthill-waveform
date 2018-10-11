@@ -40,12 +40,15 @@ http://ec2-54-219-128-8.us-west-1.compute.amazonaws.com:1337/loaderio-da078809a9
 http://ec2-54-219-128-8.us-west-1.compute.amazonaws.com:1337/loaderio-da078809a9a0dee57a2632b8564687b9.txt
 */
 
-//loaderio
+// loader.io
 app.get('/loaderio-*/', (req, res) => {
   res.status(200).send(process.env.LOADERIO_KEY);
 });
 
-
+// healthy
+app.get('/healthy', (req, res) => {
+  res.status(200).send();
+});
 
 // songs
 app.get('/api/songs/', (req, res) => {
